@@ -1,0 +1,25 @@
+# node_modules
+node_modules/
+
+# Archivos de entorno
+.env
+
+# Logs
+npm-debug.log
+yarn-error.log
+
+# Archivos de compilación
+dist/
+build/
+
+# Archivos temporales
+*.log
+*.swp
+*.swo
+
+# Archivos de configuración del editor
+.vscode/
+.idea/
+
+# Archivos de configuración de herramientas de linters
+.eslintcache

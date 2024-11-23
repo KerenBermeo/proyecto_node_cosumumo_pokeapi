@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemones por Color</title>
+</head>
+<body>
+    <h2 class="text-primary">Especies de Pokemones por Color</h2>
+    <p>Color: <%= nombre %></p>
+    <ol class="list-group mb-4">
+        <% pokemonEspecies.forEach(pE => { %>
+            <li class="list-group-item">
+                <p> Nombre especie:
+                    <%= pE.nombre.charAt(0).toUpperCase() + pE.nombre.slice(1) %>
+                </p>
+            </li>
+        <% }) %>
+    </ol>
+</body>
+</html>
+

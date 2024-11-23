@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Información del Tipo: <%= tipo.nombre %></title>
+  <link rel="stylesheet" href="/styles.css"> <!-- Opcional: agrega estilos -->
+</head>
+<body>
+  <header>
+    <h1>Información del Tipo: <%= tipo.nombre %></h1>
+  </header>
+
+  <main>
+    <!-- Relaciones de daño -->
+    <section>
+      <h2>Relaciones de Daño</h2>
+      <h3>Fuerte contra:</h3>
+      <% if (tipo.daño.fuerteContra.length > 0) { %>
+        <ul>
+          <% tipo.daño.fuerteContra.forEach(tipoFuerte => { %>
+            <li><%= tipoFuerte %></li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <p>No tiene ventajas específicas.</p>
+      <% } %>
+
+      <h3>Débil contra:</h3>
+      <% if (tipo.daño.debilContra.length > 0) { %>
+        <ul>
+          <% tipo.daño.debilContra.forEach(tipoDebil => { %>
+            <li><%= tipoDebil %></li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <p>No tiene desventajas específicas.</p>
+      <% } %>
+    </section>
+
+    <!-- Pokémon asociados -->
+    <section>
+      <h2>Pokémon de este Tipo</h2>
+      <% if (tipo.pokemon.length > 0) { %>
+        <ul>
+          <% tipo.pokemon.forEach(poke => { %>
+            <li><%= poke %></li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <p>No hay Pokémon asociados con este tipo.</p>
+      <% } %>
+    </section>
+  </main>
+
+  <footer>
+    <p>Información obtenida de <a href="https://pokeapi.co/" target="_blank">PokéAPI</a>.</p>
+  </footer>
+</body>
+</html>

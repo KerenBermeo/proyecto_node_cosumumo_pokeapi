@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habilidad: <%= habilidad.nombre %></title>
+  <link rel="stylesheet" href="/styles.css"> <!-- Opcional: agregar estilos -->
+</head>
+<body>
+  <header>
+    <h1>Detalles de la Habilidad: <%= habilidad.nombre %></h1>
+  </header>
+
+  <main>
+    <!-- Descripción de la habilidad -->
+    <section>
+      <h2>Descripción</h2>
+      <p><%= habilidad.descripcion %></p>
+    </section>
+
+    <!-- Lista de Pokémon con esta habilidad -->
+    <section>
+      <h2>Pokémon con esta Habilidad</h2>
+      <% if (habilidad.pokemon.length > 0) { %>
+        <ul>
+          <% habilidad.pokemon.forEach(poke => { %>
+            <li><%= poke %></li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <p>No hay Pokémon asociados con esta habilidad.</p>
+      <% } %>
+    </section>
+  </main>
+
+  <footer>
+    <p>Información obtenida de <a href="https://pokeapi.co/" target="_blank">PokéAPI</a>.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Información del Pokémon - <%= nombre %></title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <div class="container my-5">
+    <h2 class="text-center my-4">Información de <%= nombre.charAt(0).toUpperCase() + nombre.slice(1) %></h2>
+
+    <div class="card shadow">
+      <div class="card-body">
+        
+        <!-- Tipos -->
+        <h3 class="text-primary">Tipos</h3>
+        <ul class="list-group mb-4">
+          <% tipo.forEach(t => { %>
+            <li class="list-group-item"><%= t.charAt(0).toUpperCase() + t.slice(1) %></li>
+          <% }) %>
+        </ul>
+
+        <!-- Habilidades -->
+        <h3 class="text-primary">Habilidades</h3>
+        <ul class="list-group mb-4">
+          <% habilidades.forEach(h => { %>
+            <li class="list-group-item">
+              <%= h.nombre.charAt(0).toUpperCase() + h.nombre.slice(1) %>
+              <% if (h.es_oculta) { %> <span class="badge badge-secondary">Habilidad Oculta</span> <% } %>
+            </li>
+          <% }) %>
+        </ul>
+
+        <!-- Estadísticas -->
+        <h3 class="text-primary">Estadísticas</h3>
+        <ul class="list-group">
+          <% estadisticas.forEach(s => { %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <strong><%= s.nombre.charAt(0).toUpperCase() + s.nombre.slice(1) %></strong>
+              <span class="badge badge-primary badge-pill"><%= s.base %></span>
+            </li>
+          <% }) %>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
