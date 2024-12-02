@@ -1,60 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Información del Tipo: <%= tipo.nombre %></title>
-  <link rel="stylesheet" href="/styles.css"> <!-- Opcional: agrega estilos -->
+  <title>Lista de Habilidades</title>
+  <!-- Incluir Bootstrap desde CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ZvpUoO/+PpID+8Jf4Qb1VwzPgPo29O70NmV8jtF5zdgczT6xZBShAzA7IM2tsV5R" crossorigin="anonymous">
 </head>
 <body>
-  <header>
-    <h1>Información del Tipo: <%= tipo.nombre %></h1>
-  </header>
+  <div class="container my-5">
+    <header class="text-center mb-4">
+      <h1 class="display-4">Lista de Habilidades</h1>
+    </header>
 
-  <main>
-    <!-- Relaciones de daño -->
-    <section>
-      <h2>Relaciones de Daño</h2>
-      <h3>Fuerte contra:</h3>
-      <% if (tipo.daño.fuerteContra.length > 0) { %>
-        <ul>
-          <% tipo.daño.fuerteContra.forEach(tipoFuerte => { %>
-            <li><%= tipoFuerte %></li>
-          <% }) %>
-        </ul>
-      <% } else { %>
-        <p>No tiene ventajas específicas.</p>
-      <% } %>
+    <main>
+      <!-- Sección de habilidades -->
+      <section class="mb-4">
+        <h2 class="h3 mb-3">Habilidades disponibles</h2>
+        <% if (habilidades.length > 0) { %>
+          <ul class="list-group">
+            <% habilidades.forEach(habilidad => { %>
+              <li class="list-group-item list-group-item-action"><%= habilidad %></li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <div class="alert alert-info">No hay habilidades disponibles.</div>
+        <% } %>
+      </section>
 
-      <h3>Débil contra:</h3>
-      <% if (tipo.daño.debilContra.length > 0) { %>
-        <ul>
-          <% tipo.daño.debilContra.forEach(tipoDebil => { %>
-            <li><%= tipoDebil %></li>
-          <% }) %>
-        </ul>
-      <% } else { %>
-        <p>No tiene desventajas específicas.</p>
-      <% } %>
-    </section>
+      <!-- Paginación -->
+      <section class="text-center">
+        <h2 class="h3 mb-3">Paginación</h2>
+        <div class="btn-group" role="group">
+          <% let prevOffset = parseInt(offset) - parseInt(limit); %>
+          <% let nextOffset = parseInt(offset) + parseInt(limit); %>
 
-    <!-- Pokémon asociados -->
-    <section>
-      <h2>Pokémon de este Tipo</h2>
-      <% if (tipo.pokemon.length > 0) { %>
-        <ul>
-          <% tipo.pokemon.forEach(poke => { %>
-            <li><%= poke %></li>
-          <% }) %>
-        </ul>
-      <% } else { %>
-        <p>No hay Pokémon asociados con este tipo.</p>
-      <% } %>
-    </section>
-  </main>
+          <% if (prevOffset >= 0) { %>
+            <a class="btn btn-primary" href="/abilities/<%= prevOffset %>/<%= limit %>">Anterior</a>
+          <% } else { %>
+            <button class="btn btn-secondary" disabled>Anterior</button>
+          <% } %>
 
-  <footer>
-    <p>Información obtenida de <a href="https://pokeapi.co/" target="_blank">PokéAPI</a>.</p>
-  </footer>
+          <a class="btn btn-primary" href="/abilities/<%= nextOffset %>/<%= limit %>">Siguiente</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="text-center mt-5">
+      <p>Información obtenida de <a href="https://pokeapi.co/" target="_blank" class="btn btn-link">PokéAPI</a>.</p>
+    </footer>
+  </div>
+
+  <!-- Incluir el script de Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0RZGqZWhX84n7lGnYv5tb3bO2RmaWj8V5sx7xyR1km6qKmf" crossorigin="anonymous"></script>
 </body>
 </html>
+

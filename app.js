@@ -65,42 +65,62 @@ app.get("/ability/:name", async (req, res) => {
     const response = await axios.get(`${apiUrl}/ability/${req.params.name}`);
     const data = response.data;
 
+    // Filtrar para obtener solo los efectos en español
     const habilidad = {
       nombre: data.name,
-      efecto: data.effect_entries.map(entry => ({
-        idioma: entry.language.name,
-        efecto: entry.effect,
-      })),
+      efecto: data.effect_entries
+        .filter(entry => entry.language.name === 'es') // Filtra por idioma español
+        .map(entry => ({
+          idioma: entry.language.name,
+          efecto: entry.effect,
+        })),
       pokemon: data.pokemon.map(poke => poke.pokemon.name),
     };
 
     res.render("pag3", { habilidad });
   } catch (error) {
-    console.error("Error al obtener datos de la habilidad:", error);
     res.status(500).json({ error: "Error al obtener datos de la habilidad" });
   }
 });
 
-app.get("/abilities", async (req, res) => {
+
+app.get("/abilities/:offset/:limit", async (req, res) => {
   try {
-    const { offset = 0, limit = 20 } = req.query; // Parámetros para la paginación
+    const offset = req.params.offset;
+    const limit = req.params.limit;
+
     const response = await axios.get(`${apiUrl}/ability?offset=${offset}&limit=${limit}`);
     const data = response.data;
-
     const habilidades = data.results.map(ability => ability.name);
 
-    res.render("pag4", { habilidades, siguiente: data.next, anterior: data.previous });
+  
+    res.render("pag4", { 
+      habilidades, 
+      offset: offset, 
+      limit: limit 
+    });
+    
   } catch (error) {
-    console.error("Error al listar las habilidades:", error);
+    console.error(error);  // Imprimir el error en la consola para depuración
     res.status(500).json({ error: "Error al listar las habilidades" });
   }
 });
 
+
+
+
+
 app.get("/type/:name", async (req, res) => {
   try {
     const response = await axios.get(`${apiUrl}/type/${req.params.name}`);
+    
+    if (response.status !== 200) {
+      throw new Error("No se pudo obtener los datos del tipo.");
+    }
+
     const data = response.data;
 
+    // Recuperación de las relaciones de daño y Pokémon
     const tipo = {
       nombre: data.name,
       relaciones: {
@@ -111,12 +131,20 @@ app.get("/type/:name", async (req, res) => {
       pokemon: data.pokemon.map(poke => poke.pokemon.name),
     };
 
+    // Renderizar la vista con los datos obtenidos
     res.render("pag5", { tipo });
   } catch (error) {
     console.error("Error al obtener datos del tipo:", error);
-    res.status(500).json({ error: "Error al obtener datos del tipo" });
+
+    // Enviar un mensaje adecuado en caso de error
+    if (error.response && error.response.status === 404) {
+      res.status(404).json({ error: "Tipo no encontrado." });
+    } else {
+      res.status(500).json({ error: "Error al obtener datos del tipo" });
+    }
   }
 });
+
 
 
 const port = 3000;
