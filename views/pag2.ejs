@@ -4,19 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokemones por Color</title>
+    <!-- Incluir Bootstrap CSS desde un CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h2 class="text-primary">Especies de Pokemones por Color</h2>
-    <p>Color: <%= nombre %></p>
-    <ol class="list-group mb-4">
-        <% pokemonEspecies.forEach(pE => { %>
-            <li class="list-group-item">
-                <p> Nombre especie:
-                    <%= pE.nombre.charAt(0).toUpperCase() + pE.nombre.slice(1) %>
-                </p>
-            </li>
-        <% }) %>
-    </ol>
+<body class="bg-light">
+    <div class="container py-5">
+        <h2 class="text-primary text-center mb-4">Especies de Pokemones por Color</h2>
+        <p class="text-center mb-4">Color: <span class="fw-bold"><%= nombre %></span></p>
+
+        <!-- Grilla de cajitas con tarjetas numeradas -->
+        <ol class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5 list-decimal">
+            <% pokemonEspecies.forEach(pE => { %>
+                <li class="col">
+                    <div class="card h-100 shadow-sm border-0 d-flex align-items-center justify-content-center">
+                        <div class="card-body text-center">
+                            <p class="card-text fw-bold">
+                                <%= pE.nombre.charAt(0).toUpperCase() + pE.nombre.slice(1) %>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            <% }) %>
+        </ol>
+    </div>
+
+    <!-- Incluir Bootstrap JS y Popper.js desde CDN (opcional para interacciones) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+
+
+
 

@@ -37,7 +37,6 @@ app.get("/pokemon/:name", async (req, res) => {
   } catch (error) {
     console.error("Error al obtener datos del Pokémon:", error);
     res.status(500).send("Error al obtener datos del Pokémon");
-    console.log(response);
   }
 });
 
